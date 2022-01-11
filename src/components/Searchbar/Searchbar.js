@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FcSearch } from 'react-icons/fc';
 import styles from './Searchbar.module.css';
 
@@ -10,7 +10,7 @@ class Searchbar extends Component {
   };
 
   handleNameChange = e => {
-    this.setState({ imgName: e.currentTarget.value.toLowerCase() });
+    this.setState({ imgName: e.currentTarget.value });
   };
 
   handleSubmit = e => {
@@ -52,8 +52,9 @@ class Searchbar extends Component {
 }
 
 // Searchbar.propTypes = {
-//     value: PropTypes.string.isRequired,
-//   onSubmit: PropTypes.func.isRequired,
+//   handleSubmit: PropTypes.func.isRequired,
+//   handleNameChange: PropTypes.func.isRequired,
+//   value: PropTypes.string,
 // };
 
 export default Searchbar;
