@@ -18,10 +18,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({ loading: true });
-    const page = this.state.page;
-    const imgName = this.state.imgName;
-    this.fetchFirstImagePage(imgName, page);
+    console.log('Введите запрос картинок!');
+    // this.setState({ loading: false });
+    // const page = this.state.page;
+    // const imgName = this.state.imgName;
+    // this.fetchFirstImagePage(imgName, page);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -36,6 +37,11 @@ class App extends Component {
     if (prevState.page !== page) {
       this.fetchNextImagePages(imgName, page);
     }
+
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth',
+    });
   }
 
   toggleModal = bigImageUrl => {
@@ -75,7 +81,6 @@ class App extends Component {
 
   handleClickMoreImages = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
-    console.log('!!!');
   };
 
   render() {
@@ -95,6 +100,8 @@ class App extends Component {
         {loading && <Loader />}
 
         {total > 0 && <Button onClick={this.handleClickMoreImages} />}
+
+        {/* {!loading && <p>Введите запрос картинок!</p>} */}
 
         {!loading && total === 0 && <p>No images!</p>}
 
