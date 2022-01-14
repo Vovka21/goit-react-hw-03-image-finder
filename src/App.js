@@ -18,7 +18,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    console.log('Введите запрос картинок!');
+    // console.log('Введите запрос картинок!');
     // this.setState({ loading: false });
     // const page = this.state.page;
     // const imgName = this.state.imgName;
@@ -30,11 +30,11 @@ class App extends Component {
     const imgName = this.state.imgName;
 
     if (prevState.imgName !== imgName) {
-      this.setState({ loading: true });
+      this.setState({ loading: true, imagePage: [] });
       this.fetchFirstImagePage(imgName, page);
     }
 
-    if (prevState.page !== page) {
+    if (prevState.page !== page && page > 1) {
       this.fetchNextImagePages(imgName, page);
     }
 
@@ -66,6 +66,7 @@ class App extends Component {
     const images = hits.map(({ id, webformatURL, largeImageURL }) => {
       return { id, webformatURL, largeImageURL };
     });
+
     this.setState({
       imagePage: images,
       total,
@@ -76,6 +77,7 @@ class App extends Component {
   formSubmitHandler = value => {
     this.setState({
       imgName: value,
+      page: 1,
     });
   };
 

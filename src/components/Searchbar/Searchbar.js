@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { FcSearch } from 'react-icons/fc';
 import styles from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
     imgName: '',
+    // page: 1,
   };
 
   handleNameChange = e => {
@@ -22,7 +23,7 @@ class Searchbar extends Component {
     }
 
     this.props.onSubmit(this.state.imgName);
-    this.setState({ imgName: '' });
+    this.setState({ imgName: '', page: 1 });
   };
 
   render() {
