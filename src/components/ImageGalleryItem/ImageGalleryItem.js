@@ -2,17 +2,16 @@ import styles from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
 export default function ImageGalleryItem(props) {
-  const { webformatURL, largeImageURL, onClose } = props;
+  const { webformatURL, largeImageURL, onImageClick } = props;
+  const setFullImage = () => onImageClick(largeImageURL);
+
   return (
     <li className={styles.galleryItem}>
       <img
-        onClick={e => {
-          onClose(e.target.dataset.large);
-        }}
+        onClick={setFullImage}
         src={webformatURL}
         alt=""
         className={styles.galleryItemImage}
-        data-large={largeImageURL}
       />
     </li>
   );
@@ -21,5 +20,4 @@ export default function ImageGalleryItem(props) {
 ImageGalleryItem.propTypes = {
   webformatURL: PropTypes.string.isRequired,
   largeImageURL: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };

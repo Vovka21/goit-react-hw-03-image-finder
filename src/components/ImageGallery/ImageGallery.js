@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './ImageGallery.module.css';
 
 function ImageGallery(props) {
-  const { imagePage, onClose } = props;
+  const { imagePage, onClose, onImageClick } = props;
 
   return (
     <ul className={styles.gallery}>
@@ -14,6 +14,7 @@ function ImageGallery(props) {
             webformatURL={webformatURL}
             onClose={onClose}
             largeImageURL={largeImageURL}
+            onImageClick={onImageClick}
           />
         );
       })}

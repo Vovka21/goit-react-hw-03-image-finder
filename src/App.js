@@ -44,10 +44,17 @@ class App extends Component {
     });
   }
 
-  toggleModal = bigImageUrl => {
+  toggleModal = () => {
     this.setState({
       showModal: !this.state.showModal,
-      bigImageUrl,
+      bigImageUrl: '',
+    });
+  };
+
+  handleGalleryItem = fullImageUrl => {
+    this.setState({
+      bigImageUrl: fullImageUrl,
+      showModal: true,
     });
   };
 
@@ -97,6 +104,7 @@ class App extends Component {
           imgName={imgName}
           imagePage={imagePage}
           onClose={this.toggleModal}
+          onImageClick={this.handleGalleryItem}
         />
 
         {loading && <Loader />}
@@ -108,7 +116,9 @@ class App extends Component {
         {!loading && total === 0 && <p>No images!</p>}
 
         {showModal && (
-          <Modal onClose={this.toggleModal} bigImageUrl={bigImageUrl} />
+          <Modal onClose={this.toggleModal}>
+            <img src={bigImageUrl} alt="" />
+          </Modal>
         )}
       </div>
     );
