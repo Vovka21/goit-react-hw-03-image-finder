@@ -31,17 +31,31 @@ class App extends Component {
 
     if (prevState.imgName !== imgName) {
       this.setState({ loading: true, imagePage: [] });
-      this.fetchFirstImagePage(imgName, page);
+      // this.fetchFirstImagePage(imgName, page);
+      this.fetchImagePages(imgName, page);
     }
 
     if (prevState.page !== page && page > 1) {
-      this.fetchNextImagePages(imgName, page);
+      // this.fetchNextImagePages(imgName, page);
+      this.fetchImagePages(imgName, page);
     }
 
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       behavior: 'smooth',
     });
+  }
+
+  async fetchImagePages(imgName, page) {
+    const { hits, total } = await fetchImages(imgName, page);
+    const images = hits.map(({ id, webformatURL, largeImageURL }) => {
+      return { id, webformatURL, largeImageURL };
+    });
+    this.setState(prevState => ({
+      imagePage: [...prevState.imagePage, ...images],
+      total,
+      loading: false,
+    }));
   }
 
   toggleModal = () => {
@@ -58,28 +72,28 @@ class App extends Component {
     });
   };
 
-  async fetchNextImagePages(imgName, page) {
-    const { hits } = await fetchImages(imgName, page);
-    const images = hits.map(({ id, webformatURL, largeImageURL }) => {
-      return { id, webformatURL, largeImageURL };
-    });
-    this.setState(prevState => ({
-      imagePage: [...prevState.imagePage, ...images],
-    }));
-  }
+  // async fetchNextImagePages(imgName, page) {
+  //   const { hits } = await fetchImages(imgName, page);
+  //   const images = hits.map(({ id, webformatURL, largeImageURL }) => {
+  //     return { id, webformatURL, largeImageURL };
+  //   });
+  //   this.setState(prevState => ({
+  //     imagePage: [...prevState.imagePage, ...images],
+  //   }));
+  // }
 
-  async fetchFirstImagePage(imgName, page) {
-    const { hits, total } = await fetchImages(imgName, page);
-    const images = hits.map(({ id, webformatURL, largeImageURL }) => {
-      return { id, webformatURL, largeImageURL };
-    });
+  // async fetchFirstImagePage(imgName, page) {
+  //   const { hits, total } = await fetchImages(imgName, page);
+  //   const images = hits.map(({ id, webformatURL, largeImageURL }) => {
+  //     return { id, webformatURL, largeImageURL };
+  //   });
 
-    this.setState({
-      imagePage: images,
-      total,
-      loading: false,
-    });
-  }
+  //   this.setState({
+  //     imagePage: images,
+  //     total,
+  //     loading: false,
+  //   });
+  // }
 
   formSubmitHandler = value => {
     this.setState({
